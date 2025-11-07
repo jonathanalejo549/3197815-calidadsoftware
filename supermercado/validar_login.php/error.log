@@ -1,0 +1,19 @@
+[07-Nov-2025 00:05:28 Europe/Berlin] Intento de login con usuario inexistente: admin
+[07-Nov-2025 00:06:32 Europe/Berlin] Contraseña incorrecta para usuario: admin1
+[07-Nov-2025 00:07:39 Europe/Berlin] Contraseña incorrecta para usuario: jonathan
+[07-Nov-2025 00:07:48 Europe/Berlin] Intento de login con usuario inexistente: empleado
+[07-Nov-2025 00:18:42 Europe/Berlin] Contraseña incorrecta para usuario: cliente1
+[07-Nov-2025 00:19:35 Europe/Berlin] Contraseña incorrecta para usuario: cliente2
+[07-Nov-2025 00:20:01 Europe/Berlin] Error en validar_login.php: Unknown column 'ultima_sesion' in 'field list'
+[07-Nov-2025 00:20:33 Europe/Berlin] Contraseña incorrecta para usuario: emp1
+[07-Nov-2025 00:21:16 Europe/Berlin] Contraseña incorrecta para usuario: emp2
+[07-Nov-2025 00:21:40 Europe/Berlin] Contraseña incorrecta para usuario: emp1
+[07-Nov-2025 00:32:52 Europe/Berlin] Contraseña incorrecta para usuario: cliente1
+[07-Nov-2025 00:47:37 Europe/Berlin] Login exitoso: Usuario=cliente1, Rol=cliente
+[07-Nov-2025 00:47:59 Europe/Berlin] Login exitoso: Usuario=emp1, Rol=empleado
+[07-Nov-2025 00:49:17 Europe/Berlin] Login exitoso: Usuario=admin1, Rol=admin
+[07-Nov-2025 00:50:59 Europe/Berlin] Login exitoso: Usuario=juan, Rol=cliente
+[07-Nov-2025 00:57:31 Europe/Berlin] Login exitoso: Usuario=emp1, Rol=empleado
+[07-Nov-2025 00:57:54 Europe/Berlin] Login exitoso: Usuario=cliente1, Rol=cliente
+[07-Nov-2025 02:08:04 Europe/Berlin] Contraseña incorrecta para usuario: cliente1
+[07-Nov-2025 02:08:41 Europe/Berlin] Login exitoso: Usuario=cliente2, Rol=cliente
