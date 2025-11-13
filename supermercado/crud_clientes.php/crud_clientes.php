@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/supermercado/conexion/conexion.php');
+include_once __DIR__ . '/conexion/conexion.php';
 session_start();
 
 if(!isset($_SESSION['usuario']) || !in_array($_SESSION['rol'], ['admin','empleado'])){
@@ -50,7 +50,7 @@ if(isset($_POST['editar'])){
     exit();
 }
 
-$resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
+resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="es">
