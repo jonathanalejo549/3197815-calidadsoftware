@@ -1,15 +1,12 @@
 <?php
-// Incluir conexión usando DOCUMENT_ROOT para evitar problemas de rutas relativas
-include_once($_SERVER['DOCUMENT_ROOT'] . '/supermercado/conexion.php/conexion.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/supermercado/conexion/conexion.php');
 session_start();
 
-// Solo admin y empleado pueden acceder
 if(!isset($_SESSION['usuario']) || !in_array($_SESSION['rol'], ['admin','empleado'])){
-    header("Location: /supermercado/index.php/index.php");
+    header("Location: /supermercado/index.php");
     exit();
 }
 
-// Crear tabla clientes si no existe (simplemente para facilitar pruebas)
 $crear = "CREATE TABLE IF NOT EXISTS clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(150) NOT NULL,
@@ -19,40 +16,41 @@ $crear = "CREATE TABLE IF NOT EXISTS clientes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 $conexion->query($crear);
 
-// AGREGAR
 if(isset($_POST['agregar'])){
     $nombre = $conexion->real_escape_string($_POST['nombre']);
     $correo = $conexion->real_escape_string($_POST['correo']);
     $telefono = $conexion->real_escape_string($_POST['telefono']);
     $direccion = $conexion->real_escape_string($_POST['direccion']);
-    $conexion->query("INSERT INTO clientes (nombre, correo, telefono, direccion) VALUES ('$nombre','$correo','$telefono','$direccion')");
-    header('Location: /supermercado/crud_clientes.php/crud_clientes.php');
+
+    $conexion->query("INSERT INTO clientes (nombre, correo, telefono, direccion)
+                      VALUES ('$nombre','$correo','$telefono','$direccion')");
+
+    header('Location: /supermercado/crud_clientes.php');
     exit();
 }
 
-// ELIMINAR
 if(isset($_GET['eliminar'])){
     $id = (int)$_GET['eliminar'];
     $conexion->query("DELETE FROM clientes WHERE id=$id");
-    header('Location: /supermercado/crud_clientes.php/crud_clientes.php');
+    header('Location: /supermercado/crud_clientes.php');
     exit();
 }
 
-// EDITAR
 if(isset($_POST['editar'])){
     $id = (int)$_POST['id'];
     $nombre = $conexion->real_escape_string($_POST['nombre']);
     $correo = $conexion->real_escape_string($_POST['correo']);
     $telefono = $conexion->real_escape_string($_POST['telefono']);
     $direccion = $conexion->real_escape_string($_POST['direccion']);
-    $conexion->query("UPDATE clientes SET nombre='$nombre', correo='$correo', telefono='$telefono', direccion='$direccion' WHERE id=$id");
-    header('Location: /supermercado/crud_clientes.php/crud_clientes.php');
+
+    $conexion->query("UPDATE clientes SET nombre='$nombre', correo='$correo', 
+                      telefono='$telefono', direccion='$direccion' WHERE id=$id");
+
+    header('Location: /supermercado/crud_clientes.php');
     exit();
 }
 
-// Obtener lista
 $resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,7 +63,6 @@ $resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
 <div class="contenedor-crud">
   <h1>Gestión de Clientes 👥</h1>
 
-  <!-- FORMULARIO AGREGAR -->
   <form action="" method="POST" class="form-producto">
     <input type="text" name="nombre" placeholder="Nombre" required>
     <input type="email" name="correo" placeholder="Correo">
@@ -74,7 +71,6 @@ $resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
     <button type="submit" name="agregar">Agregar</button>
   </form>
 
-  <!-- LISTADO -->
   <table>
     <tr>
       <th>ID</th>
@@ -84,6 +80,7 @@ $resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
       <th>Dirección</th>
       <th>Acciones</th>
     </tr>
+
     <?php while($fila = $resultado->fetch_assoc()): ?>
       <tr>
         <td><?= $fila['id']; ?></td>
@@ -92,8 +89,8 @@ $resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
         <td><?= htmlspecialchars($fila['telefono']); ?></td>
         <td><?= htmlspecialchars($fila['direccion']); ?></td>
         <td>
-          <a href="/supermercado/crud_clientes.php/crud_clientes.php?editar_form=<?= $fila['id']; ?>" class="btn-editar">Editar</a>
-          <a href="/supermercado/crud_clientes.php/crud_clientes.php?eliminar=<?= $fila['id']; ?>" class="btn-eliminar" onclick="return confirm('¿Eliminar cliente?');">Eliminar</a>
+          <a href="/supermercado/crud_clientes.php?editar_form=<?= $fila['id']; ?>" class="btn-editar">Editar</a>
+          <a href="/supermercado/crud_clientes.php?eliminar=<?= $fila['id']; ?>" class="btn-eliminar" onclick="return confirm('¿Eliminar cliente?');">Eliminar</a>
         </td>
       </tr>
     <?php endwhile; ?>
@@ -111,7 +108,7 @@ $resultado = $conexion->query("SELECT * FROM clientes ORDER BY id DESC");
           <input type="text" name="telefono" value="<?= htmlspecialchars($c['telefono']); ?>">
           <input type="text" name="direccion" value="<?= htmlspecialchars($c['direccion']); ?>">
           <button type="submit" name="editar">Guardar cambios</button>
-          <a href="/supermercado/crud_clientes.php/crud_clientes.php" class="boton-cancelar">Cancelar</a>
+          <a href="/supermercado/crud_clientes.php" class="boton-cancelar">Cancelar</a>
         </form>
       </div>
   <?php }
